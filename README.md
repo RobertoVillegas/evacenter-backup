@@ -3,7 +3,7 @@
 [![Tests](https://github.com/RobertoVillegas/evacenter-backup/actions/workflows/test.yml/badge.svg)](https://github.com/RobertoVillegas/evacenter-backup/actions/workflows/test.yml)
 [![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
 [![Bun](https://img.shields.io/badge/bun-%E2%89%A5%201.4.2-black?logo=bun)](https://bun.sh)
-[![Sin dependencias](https://img.shields.io/badge/dependencias-0-brightgreen.svg)](#)
+[![Sin dependencias](https://img.shields.io/badge/dependencias-0-brightgreen.svg)](package.json)
 
 > **Descarga y respalda tus estudios del visor PACS de Evacenter desde la terminal:** imágenes DICOM
 > originales, miniaturas, documentos e informes en PDF, dentro de una carpeta ordenada y verificable
