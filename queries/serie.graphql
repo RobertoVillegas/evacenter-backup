@@ -1,0 +1,47 @@
+query CustomFiles($serieId: UUID) {
+  serie(id: $serieId) {
+    id
+    dicomWindowCenter
+    dicomWindowWidth
+    isKeySeries
+    instanceFiles {
+      id
+      fileUrl
+      mobileFileUrl
+      __typename
+    }
+    instanceParents {
+      id
+      instance {
+        id
+        dicomInstanceId
+        files {
+          fileUrl
+          __typename
+        }
+        mobileFiles {
+          fileUrl
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    hasDocument
+    hasText
+    segmentationFileUrl
+    modality {
+      identifier
+      __typename
+    }
+    study {
+      id
+      __typename
+    }
+    dicomBottomRightX
+    dicomBottomRightY
+    dicomTopLeftX
+    dicomTopLeftY
+    __typename
+  }
+}

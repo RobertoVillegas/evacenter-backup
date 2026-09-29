@@ -1,0 +1,10 @@
+mutation getVisitantTokenAuth($input: ObtainJSONWebTokenInput!) {
+  tokenAuth(input: $input) {
+    success
+    token
+    refreshToken
+    payload
+    errors
+    __typename
+  }
+}

@@ -1,0 +1,65 @@
+query getStudyInfoById($id: UUID) {
+  study(id: $id) {
+    id
+    ...Dicom
+    modalitiesList
+    referringPractitioner {
+      fullName
+      __typename
+    }
+    patient {
+      id
+      name
+      firstSurname
+      lastSurname
+      fullName
+      age
+      gender
+      birthDate
+      identifierEditable
+      patientData {
+        organization {
+          name
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    patientStudyAge
+    patientStudyAgeMonths
+    patientStudyAgeDays
+    facility {
+      id
+      name
+      contactEmail
+      contactPhone
+      timezone
+      __typename
+    }
+    practitioner {
+      fullName
+      __typename
+    }
+    practitionerAssigned {
+      fullName
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment Dicom on StudyType {
+  dicomDateTime
+  dicomDateTimeEditable
+  dicomDescription
+  dicomProcedure
+  dicomReason
+  dicomStatus
+  dicomStudyId
+  dicomReferringPhysician
+  dicomRequestingPhysician
+  dicomConsultingPhysician
+  dicomReadingPhysician
+  __typename
+}

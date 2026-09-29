@@ -1,0 +1,26 @@
+{
+  "name": "evacenter-backup",
+  "version": "1.0.0",
+  "description": "Descarga y respalda estudios del visor PACS de Evacenter (pacs.evacenter.com) desde la terminal, con DICOM originales, informes y checksums.",
+  "type": "module",
+  "packageManager": "bun@1.4.2",
+  "license": "MIT",
+  "engines": {
+    "bun": ">=1.4.2"
+  },
+  "bin": {
+    "evacenter": "./evacenter.ts"
+  },
+  "scripts": {
+    "evacenter": "bun evacenter.ts",
+    "test": "bun test"
+  },
+  "keywords": [
+    "dicom",
+    "pacs",
+    "evacenter",
+    "respaldo",
+    "medical-imaging",
+    "bun"
+  ]
+}

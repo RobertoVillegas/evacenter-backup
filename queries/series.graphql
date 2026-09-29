@@ -1,0 +1,64 @@
+query GetSeriesThumbnailsAndFilesByStudyId($studyId: UUID!) {
+  seriesThumbnails(studyId: $studyId) {
+    id
+    dicomDescription
+    dicomNumber
+    instanceCount
+    thumbnail
+    isKeySeries
+    modality
+    series {
+      hasDocument
+      segmentationFileUrl
+      ecgSeries {
+        status
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  orderStudyFiles(studyId: $studyId, isVisible: true) {
+    id
+    fileUrl
+    name
+    __typename
+  }
+  imageBookmarks(studyId: $studyId) {
+    id
+    fileUrl
+    __typename
+  }
+  study(id: $studyId) {
+    id
+    modalities
+    patient {
+      id
+      fullName
+      __typename
+    }
+    files {
+      id
+      name
+      fileUrl
+      __typename
+    }
+    reports {
+      id
+      pdfUrl
+      status
+      signedAt
+      signatureRequest {
+        id
+        certIssuer
+        certSubject
+        certSerial
+        certNotBefore
+        certNotAfter
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}

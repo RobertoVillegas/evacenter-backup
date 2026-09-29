@@ -1,0 +1,13 @@
+# Nunca subas estudios médicos a un repositorio.
+evacenter-*/
+*.dcm
+checksums.sha256
+manifest.json
+info.json
+LEEME.txt
+
+node_modules/
+.DS_Store
+.env
+.env.*
+!.env.example
