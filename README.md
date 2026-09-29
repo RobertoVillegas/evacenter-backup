@@ -13,6 +13,9 @@ La clínica te manda un enlace para *ver* el estudio… pero no te da forma de d
 cuánto tiempo lo va a conservar. Cuando ese enlace caduca, el estudio se queda con ellos.
 Este proyecto convierte el enlace en una copia que es tuya.
 
+Es la **primera herramienta libre para el visor de Evacenter**: para otros portales hay proyectos
+parecidos, pero ninguno cubría este.
+
 ```bash
 bun run evacenter "https://pacs.evacenter.com/v2/mobile_viewer?studyId=…&ac=…"
 ```
@@ -194,6 +197,25 @@ Si vas a compartir el estudio con alguien, **anonimízalo antes**:
 [pydicom/deid](https://github.com/pydicom/deid) y las utilidades de DCMTK pueden quitar los datos del
 paciente de los archivos.
 
+## 🌍 Proyectos similares
+
+Hasta donde pudimos buscar, **no existía ninguna herramienta libre para el visor de Evacenter**:
+lo que hay son utilidades para portales concretos de otros países o para DICOMweb genérico. Sirven
+de referencia y como punto de partida si tu estudio vive en otro servicio:
+
+| Proyecto | Alcance | Notas |
+| --- | --- | --- |
+| [cloud-dicom-downloader](https://github.com/Kaciras/cloud-dicom-downloader) | China, 11 portales | El más parecido: un *crawler* por portal, miniaturas y la misma estructura `serie/00001.dcm`. Sin mantenimiento desde 2025. |
+| [alegomes/pacs-downloader](https://github.com/alegomes/pacs-downloader) | Brasil (Rede D'Or) | CLI para descargar, inspeccionar y exportar estudios. |
+| [UNC-HNG/pacs-downloader](https://github.com/UNC-HNG/pacs-downloader) | EE. UU. (UNC) | CLI sobre la API REST del PACS. |
+| [eduardocaminha/DICOMweb-Downloader](https://github.com/eduardocaminha/DICOMweb-Downloader) | DICOMweb estándar | Script de Python para servidores QIDO/WADO. |
+| [Fsunroo/DicomDownloaderClient](https://github.com/Fsunroo/DicomDownloaderClient) | Visores web | Automatiza un navegador *headless*. |
+| [bodydexa/Orthanc-DICOM-Downloader](https://github.com/bodydexa/Orthanc-DICOM-Downloader) | Orthanc | Búsqueda y descarga selectiva. |
+| [therlaup/pydicom-batch](https://github.com/therlaup/pydicom-batch) | PACS por DIMSE | Exportación por lotes en Python. |
+| [Flacozyabra/DICOM_WatchDog](https://github.com/Flacozyabra/DICOM_WatchDog) | PACS | Vigilancia de carpetas y descargas automáticas. |
+
+Si tu estudio está en otro portal, échales un ojo: la idea es la misma, cambia el protocolo.
+
 ## 🧠 Cómo funciona por dentro
 
 1. El enlace del visor trae dos parámetros: `studyId` y `ac`. El segundo es base64 de
@@ -266,6 +288,8 @@ Actualiza los documentos de `queries/` con los del visor nuevo. Todo lo demás s
 - **Es para tus propios estudios**, o para aquellos donde tengas autorización del paciente.
 - El enlace **es una credencial**: quien lo tenga puede ver el estudio. No lo compartas, no lo
   publiques en foros y no lo pegues en servicios de terceros.
+- En GitHub hay enlaces de estudios —con sus credenciales dentro— guardados en repositorios
+  públicos, muchas veces sin saberlo. Si guardas tu enlace en algún archivo, que no sea un repo público.
 - La carpeta descargada contiene datos médicos personales: guárdala cifrada y no la subas a
   repositorios, nubes públicas ni chats.
 - El proyecto no envía telemetría ni datos a ningún servidor distinto del propio PACS.
