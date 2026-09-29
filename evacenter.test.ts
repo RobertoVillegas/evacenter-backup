@@ -23,6 +23,19 @@ test('parseLink explica qué falta en enlaces rotos', () => {
   expect(() => parseLink(`https://pacs.evacenter.com/v2/mobile_viewer?studyId=${STUDY}&ac=$$$`)).toThrow(/credenciales/);
 });
 
+test('parseLink acepta enlaces con el estudio en la ruta (visor de escritorio)', () => {
+  for (const candidate of [
+    `https://pacs.evacenter.com/viewer/${STUDY}/?ac=${AC}&mv=1&md=1`,
+    `https://apps.evacenter.com/pacs/report-detail/${STUDY}/?ac=${AC}&mv=1&md=1`,
+    `https://pacs.evacenter.com/v2/mobile_viewer/?study=${STUDY}&ac=${AC}`,
+  ]) {
+    const parsed = parseLink(candidate);
+    expect(parsed.studyId).toBe(STUDY);
+    expect(parsed.user).toBe('alguien@example.com');
+  }
+  expect(() => parseLink(`https://pacs.evacenter.com/viewer/?ac=${AC}`)).toThrow(/studyId/);
+});
+
 test('parseArgs entiende comandos, opciones y rechaza lo inválido', () => {
   expect(parseArgs([link]).command).toBe('download');
   expect(parseArgs(['info', link]).command).toBe('info');

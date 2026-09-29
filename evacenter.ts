@@ -37,6 +37,8 @@ const WANTED: Record<string, string> = {
 };
 const FILE_HEADERS = { Referer: DEFAULT_REFERER, Origin: DEFAULT_REFERER.replace(/\/$/, ''), 'User-Agent': `evacenter/${VERSION}` };
 
+const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+
 export const help = `Respalda estudios del visor PACS de Evacenter (pacs.evacenter.com).
 
   bun run evacenter <enlace>              Descarga el estudio completo
@@ -149,9 +151,11 @@ export function parseLink(input: string) {
     throw new Error('El enlace no es una URL válida. Cópialo completo desde el correo o mensaje de la clínica.');
   }
   if (!/^https?:$/.test(url.protocol)) throw new Error('El enlace debe empezar con https://');
-  const studyId = url.searchParams.get('studyId') || '';
+  // El identificador puede venir en la query (visor móvil) o en la ruta (visor de escritorio:
+  // /viewer/<uuid>/, /pacs/report-detail/<uuid>/, ...), así que se aceptan las dos formas.
+  const studyId = url.searchParams.get('studyId') || url.searchParams.get('study') || url.pathname.match(UUID)?.[0] || '';
   const raw = url.searchParams.get('ac') || '';
-  if (!studyId) throw new Error(`El enlace no trae el parámetro studyId (${url.host}). Copia el enlace completo que abre el visor.`);
+  if (!studyId) throw new Error(`El enlace no trae el identificador del estudio (studyId), ni en los parámetros ni en la ruta de ${url.host}. Copia el enlace completo que abre el visor.`);
   if (!raw) throw new Error('El enlace no trae el parámetro ac, que lleva las credenciales de acceso. Cópialo completo, sin recortarlo.');
   const ac = safeDecode(raw);
   const { user, password } = decodeCredentials(ac);

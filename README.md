@@ -25,6 +25,7 @@ bun run evacenter "https://pacs.evacenter.com/v2/mobile_viewer?studyId=…&ac=�
 ## ✨ Qué hace
 
 - 📥 Descarga las **imágenes DICOM originales**, byte a byte, sin recomprimir ni tocar una sola etiqueta.
+- 🔗 Acepta cualquier enlace del visor (móvil o de escritorio) y no necesita que esté en tu red.
 - 🗂️ Ordena todo por serie y nombra cada archivo con su número real de instancia (`0001.dcm`, `0002.dcm`…).
 - 📄 Se trae también miniaturas, documentos, imágenes marcadas en el visor e **informes en PDF**.
 - 🔐 Deja `manifest.json`, `info.json`, `checksums.sha256` y un `LEEME.txt` con instrucciones.
@@ -80,6 +81,9 @@ Incluye manifest.json, info.json, checksums.sha256 y LEEME.txt con cómo verlo.
 ```
 
 > 💡 Pasa siempre el enlace **entre comillas**: contiene `&` y el shell se lo comería.
+>
+> 🔗 Sirven las **dos formas** del enlace del visor: la móvil (`…/v2/mobile_viewer/?studyId=…`)
+> y la de escritorio (`…/viewer/<studyId>/?ac=…`), incluso cuando viene de `apps.evacenter.com`.
 
 También puedes usarlo sin clonar nada:
 
