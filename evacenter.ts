@@ -43,7 +43,7 @@ export const help = `Respalda estudios del visor PACS de Evacenter (pacs.evacent
 
   bun run evacenter <enlace>              Descarga el estudio completo
   bun run evacenter info <enlace>         Muestra el inventario sin descargar
-  bun run evacenter verify <carpeta>      Verifica un respaldo ya descargado
+  bun run evacenter verify [carpeta]      Verifica un respaldo (sin carpeta: la actual)
 
 Opciones:
   --out, -o <carpeta>     Dónde guardar (por defecto ./evacenter-<fecha>-<estudio>)
@@ -138,7 +138,7 @@ export function parseArgs(argv: string[]) {
     else if (!options.link) options.link = arg;
     else throw new Error(`Argumento de más: ${arg}. Usa --help.`);
   }
-  if (!options.help && !options.link) throw new Error('Falta el enlace del estudio o la carpeta. Usa --help.');
+  if (!options.help && !options.link && options.command !== 'verify') throw new Error('Falta el enlace del estudio o la carpeta. Usa --help.');
   return options;
 }
 
@@ -622,7 +622,11 @@ async function verifyBackup(options: ReturnType<typeof parseArgs>) {
   if (missing.length) console.log(`  faltan ${missing.length}: ${missing.slice(0, 5).join(', ')}`);
   if (damaged.length) console.log(`  dañados ${damaged.length}: ${damaged.slice(0, 5).join(', ')}`);
   if (damaged.length || missing.length) process.exitCode = 1;
-  else console.log('Todo íntegro: cada archivo coincide con su checksum y los DICOM son válidos.');
+  else {
+    console.log('Todo íntegro: cada archivo coincide con su checksum y los DICOM son válidos.');
+    console.log('También con herramientas del sistema (copia y pega):');
+    console.log('  cd "' + dir + '" && shasum -a 256 -c checksums.sha256');
+  }
 }
 
 function readmeForExport(manifest: Manifest, outDir: string) {

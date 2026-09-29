@@ -156,6 +156,9 @@ si falta, el UID del objeto), así que el resultado es ordenable y reproducible.
 
 ```bash
 bun run evacenter verify ~/Estudios/evacenter-2026-04-15-1a2b3c4d
+
+# o desde dentro de la carpeta, sin argumentos
+cd ~/Estudios/evacenter-2026-04-15-1a2b3c4d && bun run evacenter verify
 ```
 
 ```
@@ -256,8 +259,11 @@ bun run evacenter --help
 
 ## ⚠️ Límites conocidos
 
-- El enlace **caduca** (normalmente en unas 24 horas) o la clínica puede revocarlo. Si falla por
-  permisos, pide un enlace nuevo y vuelve a ejecutar el mismo comando: lo ya descargado no se pierde.
+- El enlace puede dejar de funcionar cuando la clínica lo revoque, desactive la cuenta de visitante o
+  borre el estudio: eso lo decide el servidor y **no hay forma de saberlo desde fuera**. Lo único
+  verificable es que el token de sesión dura 24 horas exactas y que la herramienta pide uno nuevo en
+  cada ejecución, así que ese límite no te afecta. Si deja de servir, pide otro enlace y vuelve a
+  ejecutar el mismo comando: lo ya descargado no se pierde.
 - El rol visitante no tiene acceso al ZIP del estudio que sí ofrece el visor clínico, así que las
   imágenes se descargan una por una (ventaja: el proceso es reanudable).
 - Solo se descarga lo que el enlace permita ver. Si el visor no muestra una serie, aquí tampoco estará.
@@ -280,6 +286,14 @@ Lo ya descargado sirve para siempre.
 
 **¿Puedo recuperar un estudio de hace años?**
 Solo si la clínica todavía lo conserva y te genera un enlace. Motivo de más para respaldarlo hoy.
+
+**¿Cuánto dura el enlace?**
+No se puede saber desde fuera: depende de cómo lo configure la clínica (puede revocarlo o desactivar la
+cuenta de visitante en cualquier momento, o dejarlo vivo semanas). Lo que sí está comprobado es que el
+enlace contiene usuario y contraseña —si cambias un carácter de la contraseña el servidor responde
+`invalid_credentials`— y que el token de sesión dura 24 h exactas (`exp - origIat = 86400 s`), pero se
+renueva en cada ejecución. Por eso importa el respaldo: mientras el enlace viva puedes rehacerlo;
+después, solo te quedará tu copia.
 
 **¿Funciona en Windows?**
 Sí, con [Bun](https://bun.sh) instalado.
